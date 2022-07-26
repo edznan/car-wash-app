@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Editing the billing option</h2>
+<mat-dialog-content>
+  <form [formGroup]="editForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input type="text" matInput formControlName="name" placeholder="Name">
+    </mat-form-field>
+    <div>
+      <span class="option-logo" #selectedLogo>
+        <img [src]="getImage(provider.logo)" (click)="initImageSelect()">
+      </span>
+      <input #imageUpload type="hidden" placeholder="Logo" accept="image/jpeg, image/jpg, image/png" formControlName="logo" (change)="handleImageUpload($event)">
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog('No')">
+    Cancel
+  </button>
+  <button mat-button cdkFocusInitial (click)="submit(editForm)">
+    Save
+  </button>
+</mat-dialog-actions>

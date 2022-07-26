@@ -1,0 +1,41 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Timing / price options</h1>
+
+  <div *ngIf="!isLoading; else loading">
+    <div *ngIf="moneyOptions.length > 0; else noData">
+      <mat-card class="mat-elevation-z3" *ngFor="let option of moneyOptions">
+        <div class="card-item-inner">
+          <p>
+            <span class="option-value">
+              {{ option.time }} seconds
+            </span>
+            <span style="margin: 0 5px;"> // </span>
+            <span class="option-value">
+              € {{ option.amount }} <small>EUR</small>
+            </span>
+          </p>
+          <span>
+            <button mat-flat-button color="primary" (click)="initEditOption(option)">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-flat-button color="warn" (click)="initDeleteOption(option.id)">
+              <mat-icon>close</mat-icon>
+            </button>
+          </span>
+        </div>
+      </mat-card>
+    </div>
+
+    <ng-template #noData>
+      There is no billing options here right now. <span style="font-size: 30px;">🤷‍♂️</span>
+    </ng-template>
+  </div>
+</div>
+
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+</ng-template>
+
+<button mat-fab color="primary" class="add-button" (click)="initAddOption()">
+  <mat-icon>add</mat-icon>
+</button>

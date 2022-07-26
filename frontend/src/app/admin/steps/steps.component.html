@@ -1,0 +1,32 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Steps</h1>
+
+  <div *ngIf="!isLoading; else loading">
+    <mat-list role="list" class="mat-elevation-z4" *ngIf="steps.length > 0; else noData">
+      <mat-list-item matRipple role="listitem" *ngFor="let step of steps">
+        <div class="list-item-inner">
+          <span>
+            {{ step.label }}
+          </span>
+          <span>
+            <button mat-stroked-button (click)="initEditStep(step.id)">Edit</button>
+            <button mat-stroked-button color="warn" (click)="initDeleteStep(step.id)">Delete</button>
+          </span>
+        </div>
+      </mat-list-item>
+    </mat-list>
+
+    <ng-template #noData>
+      There is no steps here right now. <span style="font-size: 30px;">🤷‍♂️</span>
+    </ng-template>
+  </div>
+</div>
+
+<button mat-fab color="primary" class="add-button" (click)="initAddStep()">
+  <mat-icon>add</mat-icon>
+</button>
+
+
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+</ng-template>

@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Your washes</h2>
+<mat-dialog-content>
+  <p *ngFor="let wash of washes">
+    <span>
+      {{ wash.programName }}
+    </span>
+    <span>
+      {{ wash.length }} seconds
+    </span>
+    <span>
+      {{ wash.cost }}
+    </span>
+  </p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button cdkFocusInitial mat-dialog-close="true">Ok</button>
+</mat-dialog-actions>

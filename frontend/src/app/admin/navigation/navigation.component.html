@@ -1,0 +1,63 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+      [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+      [mode]="(isHandset$ | async) ? 'over' : 'side'"
+      [opened]="(isHandset$ | async) === false">
+    <mat-toolbar>Menu</mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item routerLink="admin/dashboard">Dashboard</a>
+      <a mat-list-item routerLink="admin/programs">Programs</a>
+      <a mat-list-item routerLink="admin/steps">Steps</a>
+      <a mat-list-item routerLink="admin/discounts">Discounts</a>
+      <a mat-list-item routerLink="admin/billing">Billing</a>
+      <a mat-list-item routerLink="admin/options">Options</a>
+      <a mat-list-item routerLink="admin/customers">Customers</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="isHandset$ | async">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button>
+      <span *ngIf="!router.url.includes('/edit') && !router.url.includes('/add') && !router.url.includes('/view'); else backButton">Admin</span>
+      <ng-template #backButton>
+        <button class="back-button" mat-button (click)="goBack()">
+          <mat-icon>arrow_back_ios</mat-icon>
+          <span>Back</span>
+        </button>
+      </ng-template>
+      <span class="spacer"></span>
+      <button mat-button (click)="logout()">
+        Logout
+      </button>
+    </mat-toolbar>
+
+    <app-dashboard *ngIf="router.url === '/admin/dashboard'"></app-dashboard>
+
+    <app-programs *ngIf="router.url === '/admin/programs'"></app-programs>
+    <app-edit-program *ngIf="router.url.includes('/admin/programs/edit')"></app-edit-program>
+    <app-add-program *ngIf="router.url === '/admin/programs/add'"></app-add-program>
+
+    <app-steps *ngIf="router.url === '/admin/steps'"></app-steps>
+    <app-edit-step *ngIf="router.url.includes('/admin/steps/edit')"></app-edit-step>
+    <app-add-step *ngIf="router.url === '/admin/steps/add'"></app-add-step>
+
+    <app-discounts *ngIf="router.url === '/admin/discounts'"></app-discounts>
+
+    <app-billing *ngIf="router.url === '/admin/billing'"></app-billing>
+    <app-edit-billing *ngIf="router.url === '/admin/billing/edit'"></app-edit-billing>
+    <app-add-billing *ngIf="router.url === '/admin/billing/add'"></app-add-billing>
+
+    <app-options *ngIf="router.url === '/admin/options'"></app-options>
+
+    <app-customers *ngIf="router.url === '/admin/customers'"></app-customers>
+    <app-view-customer *ngIf="router.url.includes('/admin/customers/view')"></app-view-customer>
+    <app-edit-customer *ngIf="router.url.includes('/admin/customers/edit')"></app-edit-customer>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

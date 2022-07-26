@@ -1,0 +1,84 @@
+<p>
+  <mat-toolbar color="primary">
+    <span>Car wash</span>
+    <span class="spacer"></span>
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_horiz</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="profile()">Profile</button>
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
+  </mat-toolbar>
+</p>
+
+<mat-card class="mat-elevation-z5" *ngIf="!isLoading; else loading">
+  <mat-stepper labelPosition="bottom" linear="true" #stepper *ngIf="!isWashing; else wash">
+    <mat-step [stepControl]="firstForm">
+      <form [formGroup]="firstForm">
+        <ng-template matStepLabel>Enter your amount</ng-template>
+        <mat-form-field appearance="outline">
+          <mat-label>Select the amount you want to pay</mat-label>
+          <mat-select placeholder="Money" formControlName="money">
+            <mat-option *ngFor="let option of moneyOptions" [value]="option.amount">
+              € {{ option.amount }} EUR // {{ option.time }} seconds
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondForm">
+      <form [formGroup]="secondForm">
+        <ng-template matStepLabel>Select your payment option</ng-template>
+        <mat-form-field appearance="outline">
+          <mat-label>Payment option</mat-label>
+          <mat-select formControlName="paymentProvider">
+            <mat-option *ngFor="let provider of providers" [value]="provider.name">
+              {{ provider.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="thirdForm">
+      <form [formGroup]="thirdForm">
+        <ng-template matStepLabel>Select your program</ng-template>
+        <mat-form-field appearance="outline">
+          <mat-label>Program</mat-label>
+          <mat-select formControlName="program">
+            <mat-option *ngFor="let program of programs" [value]="program.id">
+              {{ program.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Wash</ng-template>
+      <p>Proceed to start washing.</p>
+      <div>
+        <button mat-button (click)="startWash(firstForm, secondForm, thirdForm)">Start</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+</mat-card>
+
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+  <p class="loading-text">Fetching your options. Please wait. <span style="font-size: 30px;">🚗 🏎️ 🚙</span></p>
+</ng-template>
+
+<ng-template #wash>
+  <app-wash *ngIf="programToShow !== null" [program]="programToShow" [duration]="duration" (newWash)="prepareToWash()"></app-wash>
+</ng-template>

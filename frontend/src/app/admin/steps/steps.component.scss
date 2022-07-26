@@ -1,0 +1,21 @@
+
+.grid-container {
+  margin: 20px;
+
+  mat-list {
+    mat-list-item {
+      div.list-item-inner {
+        width: 96%;
+        margin: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        span {
+          button {
+            margin: 0 5px;
+          }
+        }
+      }
+    }
+  }
+}

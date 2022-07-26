@@ -1,0 +1,70 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Discounts</h1>
+
+  <div *ngIf="!isLoading; else loading">
+    <div *ngIf="discounts.length > 0; else noData">
+      <mat-card class="mat-elevation-z3">
+        <div class="card-item-inner">
+          <span>
+            {{ discounts[0].label }}
+          </span>
+          <span>
+           € {{ discounts[0].discountAmount }} <small>EUR</small>
+          </span>
+          <span>
+            <form [formGroup]="weekendDiscountForm" *ngIf="discounts[0].id === 1">
+              <mat-slide-toggle
+                  class="toggle-margin"
+                  [checked]="discounts[0].isActive"
+                  formControlName="isActiveWeekend"
+                  (change)="valueChange($event, discounts[0].id, weekendDiscountForm, 'isActiveWeekend')">
+                <span *ngIf="discounts[0].isActive; else notActive">
+                  Active
+                </span>
+                <ng-template #notActive>
+                  Not active
+                </ng-template>
+              </mat-slide-toggle>
+            </form>
+          </span>
+        </div>
+      </mat-card>
+
+      <mat-card class="mat-elevation-z3">
+        <div class="card-item-inner">
+          <span>
+            {{ discounts[1].label }}
+          </span>
+          <span>
+           € {{ discounts[1].discountAmount }} <small>EUR</small>
+          </span>
+          <span>
+            <form [formGroup]="every5thWashForm" *ngIf="discounts[1].id === 2;">
+              <mat-slide-toggle
+                  class="toggle-margin"
+                  [checked]="discounts[1].isActive"
+                  formControlName="isActiveEvery5th"
+                  (change)="valueChange($event, discounts[1].id, every5thWashForm, 'isActiveEvery5th')">
+                <span *ngIf="discounts[1].isActive; else notActive">
+                  Active
+                </span>
+                <ng-template #notActive>
+                  Not active
+                </ng-template>
+              </mat-slide-toggle>
+            </form>
+          </span>
+        </div>
+      </mat-card>
+    </div>
+
+    <ng-template #noData>
+      There is no discounts here right now. <span style="font-size: 30px;">🤷‍♂️</span>
+    </ng-template>
+  </div>
+</div>
+
+
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+</ng-template>

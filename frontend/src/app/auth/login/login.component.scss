@@ -1,0 +1,41 @@
+.auth-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 10px;
+
+  h1.mat-h1 {
+    margin: 0;
+  }
+}
+
+.grid-container {
+  margin: 20px;
+
+  mat-card {
+    width: 75%;
+    margin: 2em auto;
+    text-align: center;
+    padding: 30px;
+    max-width: 400px;
+
+    .form-container {
+
+      mat-form-field {
+        display: block;
+      }
+
+      .login-btn {
+        margin: 15px 0;
+        width: 100%;
+      }
+
+    }
+
+    h3 {
+      text-align: left;
+    }
+
+  }
+}

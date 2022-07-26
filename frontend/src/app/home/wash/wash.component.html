@@ -1,0 +1,29 @@
+<div *ngIf="isWashing; else done">
+  <mat-progress-spinner mode="determinate" [value]="progress"></mat-progress-spinner>
+
+  <h2>
+    {{ currentStep.label }}
+  </h2>
+
+  <p>
+    {{ currentStep.description }}
+  </p>
+
+  <p>
+    <small>
+      {{ currentStep.length }} seconds
+    </small>
+  </p>
+
+</div>
+
+<ng-template #done>
+  <h2 style="margin-top: 70px;">
+    Your washing is complete. <span style="font-size: 30px;">🧽</span>
+  </h2>
+  <p>
+    <button mat-flat-button (click)="restart()">
+      New wash
+    </button>
+  </p>
+</ng-template>

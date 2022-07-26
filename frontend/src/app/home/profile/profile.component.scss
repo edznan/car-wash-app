@@ -1,0 +1,28 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.grid-container {
+  width: 90%;
+  position: relative;
+  left: 20px;
+
+  .header {
+
+    padding-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    h1 {
+      margin: 0;
+    }
+
+  }
+
+  .settings-info-row {
+    padding: 20px 0;
+  }
+
+}

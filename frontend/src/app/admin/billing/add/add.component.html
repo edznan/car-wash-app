@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Add new billing option</h2>
+<mat-dialog-content>
+  <form [formGroup]="addForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input type="text" matInput formControlName="name" placeholder="Name">
+    </mat-form-field>
+    <div>
+     <input type="file" placeholder="Logo" accept="image/jpeg, image/jpg, image/png" formControlName="logo" (change)="handleImageUpload($event)">
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button (click)="closeDialog('No')">
+    Cancel
+  </button>
+  <button mat-button cdkFocusInitial (click)="submit(addForm)">
+    Add
+  </button>
+</mat-dialog-actions>

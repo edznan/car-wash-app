@@ -1,0 +1,54 @@
+<div class="grid-container" *ngIf="!isLoading; else loading">
+  <div class="header">
+    <h1 class="mat-h1">Adding a new program</h1>
+  </div>
+
+  <br>
+  <br>
+
+  <div *ngIf="steps.length > 0; else noSteps">
+    <form [formGroup]="addForm">
+      <mat-form-field appearance="outline">
+        <mat-label>Label</mat-label>
+        <input matInput placeholder="Label" formControlName="label">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <input matInput placeholder="Description" type="text" formControlName="description">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Steps</mat-label>
+        <mat-select formControlName="steps" multiple>
+          <mat-option *ngFor="let step of steps" [value]="step">
+            {{ step.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-flat-button (click)="submit(addForm)">
+        Save
+      </button>
+    </form>
+
+    <br>
+
+    <h3>Sort steps</h3>
+
+    <div cdkDropList class="sortable-list" (cdkDropListDropped)="drop($event)">
+      <div class="sortable-list-item" *ngFor="let step of steps" cdkDrag>
+        {{ step.label }}
+      </div>
+    </div>
+  </div>
+
+  <ng-template #noSteps>
+    <p>
+      There is no steps available. Please add some steps and then proceed to add a program.
+    </p>
+  </ng-template>
+
+
+</div>
+
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+</ng-template>

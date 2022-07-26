@@ -1,0 +1,22 @@
+<div class="grid-container">
+  <div class="header">
+    <h1 class="mat-h1">Add step</h1>
+  </div>
+
+  <br>
+  <br>
+
+  <form [formGroup]="addForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Label</mat-label>
+      <input matInput placeholder="Label" formControlName="label">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Description</mat-label>
+      <input matInput placeholder="Description" type="text" formControlName="description">
+    </mat-form-field>
+    <button mat-flat-button (click)="submit(addForm)">
+      Save
+    </button>
+  </form>
+</div>

@@ -1,0 +1,92 @@
+<p>
+  <mat-toolbar color="primary">
+    <span>Profile</span>
+    <span class="spacer"></span>
+    <button mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_horiz</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="wash()">Wash</button>
+      <button mat-menu-item (click)="logout()">Logout</button>
+    </mat-menu>
+  </mat-toolbar>
+</p>
+
+<div class="grid-container" *ngIf="!isLoading; else loading">
+  <div class="header">
+    <h1 class="mat-h1">My profile</h1>
+    <button mat-stroked-button (click)="viewListOfWashes()">
+      List of washes
+      <mat-icon>list</mat-icon>
+    </button>
+  </div>
+
+  <br>
+  <br>
+
+  <h3>
+    <b>Basic info</b>
+  </h3>
+
+  <div class="settings-info-row">
+    <div>ID:</div>
+    <br>
+    <span>
+      {{ user.id }}
+    </span>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="settings-info-row">
+    <div>Email:</div>
+    <br>
+    <span>
+      {{ user.email }}
+    </span>
+  </div>
+
+  <mat-divider></mat-divider>
+  <div class="settings-info-row">
+    <div>Name:</div>
+    <br>
+    <span>
+      {{ user.name }}
+    </span>
+  </div>
+
+
+  <mat-divider></mat-divider>
+
+  <br>
+  <br>
+
+  <h3>
+    <b>Service usage</b>
+  </h3>
+
+  <div class="settings-info-row">
+    <div>Money spent:</div>
+    <br>
+    <span>
+      € {{ user.moneySpent }} <small>EUR</small>
+    </span>
+  </div>
+
+  <mat-divider></mat-divider>
+
+  <div class="settings-info-row">
+    <div>Number of washes:</div>
+    <br>
+    <span>
+     {{ user.numberOfWashes }}
+    </span>
+  </div>
+
+  <mat-divider></mat-divider>
+
+</div>
+
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+</ng-template>

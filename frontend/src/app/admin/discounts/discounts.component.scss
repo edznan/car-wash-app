@@ -1,0 +1,23 @@
+
+.grid-container {
+  margin: 20px;
+
+  mat-card {
+    margin: 25px 0;
+
+    div.card-item-inner {
+        width: 96%;
+        margin: auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 20px;
+
+        span {
+          button {
+            margin: 0 5px;
+          }
+        }
+      }
+  }
+}

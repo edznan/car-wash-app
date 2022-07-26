@@ -1,0 +1,41 @@
+<div class="grid-container" *ngIf="!isLoading; else loading">
+  <div class="header">
+    <h1 class="mat-h1">Editing customer</h1>
+  </div>
+
+  <br>
+  <br>
+
+  <form [formGroup]="editForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput placeholder="Name" formControlName="name">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput placeholder="Email" type="email" formControlName="email">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Role</mat-label>
+      <mat-select formControlName="role">
+        <mat-option value="admin">Admin</mat-option>
+        <mat-option value="customer">Customer</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Number of washes</mat-label>
+      <input matInput placeholder="Number of washes" type="number" formControlName="numberOfWashes">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Money spent</mat-label>
+      <input matInput placeholder="Money spent" type="number" formControlName="moneySpent">
+    </mat-form-field>
+    <button mat-flat-button (click)="submit(editForm)">
+      Save
+    </button>
+  </form>
+</div>
+
+<ng-template #loading>
+  <mat-spinner></mat-spinner>
+</ng-template>

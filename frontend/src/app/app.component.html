@@ -1,0 +1,15 @@
+<div *ngIf="!isLoggedIn; else loggedIn">
+  <app-login *ngIf="router.url === '/auth/login' || router.url === '/auth'"></app-login>
+  <app-register *ngIf="router.url === '/auth/register'"></app-register>
+  <app-reset-password *ngIf="router.url === '/auth/reset-password'"></app-reset-password>
+  <app-verify-email *ngIf="router.url === '/auth/verify-email'"></app-verify-email>
+</div>
+
+<ng-template #loggedIn>
+  <app-navigation *ngIf="router.url.includes('/admin')"></app-navigation>
+  <app-start *ngIf="router.url === '/home/wash'"></app-start>
+  <app-profile *ngIf="router.url === '/home/profile'"></app-profile>
+</ng-template>
+
+<app-not-found *ngIf="router.url === '/404'"></app-not-found>
+

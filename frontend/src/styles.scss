@@ -1,0 +1,77 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css");
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button {
+  border-radius: 15px !important;
+}
+
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+  background-color: #1f2631 !important;
+}
+
+.mat-checkbox-background, .mat-checkbox-frame, .mat-pseudo-checkbox {
+  border-radius: 5px !important;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+mat-list-option {
+  border-bottom: 1px solid rgba(204, 204, 204, 0.384);
+}
+
+.mat-progress-spinner {
+  margin: auto;
+  top: 100px;
+}
+
+.loading-text {
+  text-align: center;
+  position: relative;
+  top: 150px;
+}
+
+.mat-menu-content:not(:empty) {
+  width: 150px;
+
+  button.mat-menu-item {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    mat-icon {
+      margin-right: 5px;
+    }
+  }
+}
+
+.mat-list-base .mat-list-item.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,
+.mat-list-base .mat-list-item.mat-list-option .mat-list-item-content-reverse .mat-list-text,
+.mat-list-base .mat-list-option.mat-list-item-with-avatar .mat-list-item-content-reverse .mat-list-text,
+.mat-list-base .mat-list-option.mat-list-option .mat-list-item-content-reverse .mat-list-text {
+  padding-right: 0 !important;
+}
+
+.add-button {
+  position: fixed !important;
+  right: 3%;
+  bottom: 3%;
+  z-index: 15;
+}
+
+.mat-progress-spinner circle, .mat-spinner circle {
+  stroke: #1f2631;
+}
+
+.mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
+  background-color: #1f2631 !important;
+}
+
+.mat-bottom-sheet-container {
+  max-height: 100vh !important;
+  height: 100vh;
+}
