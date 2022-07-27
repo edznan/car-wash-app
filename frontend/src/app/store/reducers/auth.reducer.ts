@@ -8,7 +8,8 @@ export interface State {
   fromData: any;
   error: any;
   user: User;
-  isLoading: boolean;
+  isLoadingLogin: boolean;
+  isLoadingRegister: boolean;
   registering: boolean;
   token: string;
 }
@@ -25,7 +26,8 @@ export const initialState: State = {
     moneySpent: 0,
     isAdmin: false
   },
-  isLoading: false,
+  isLoadingLogin: false,
+  isLoadingRegister: false,
   registering: true,
   token: ''
 };
@@ -35,13 +37,15 @@ export const reducer = createReducer(
   on(AuthActions.loginPage, (state, action) => {
     return {
       ...state,
-      isLoading: true
+      isLoadingLogin: true,
+      isLoadingRegister: false
     }
   }),
   on(AuthActions.registerPage, (state, action) => {
     return {
       ...state,
-      isLoading: true,
+      isLoadingLogin: false,
+      isLoadingRegister: true,
       registering: true
     }
   }),
@@ -49,7 +53,8 @@ export const reducer = createReducer(
     return {
       ...state,
       user: action.data.user,
-      isLoading: false,
+      isLoadingLogin: false,
+      isLoadingRegister: false,
       token: action.data.token
     }
   }),
@@ -64,7 +69,8 @@ export const reducer = createReducer(
         moneySpent: 0,
         isAdmin: false
       },
-      isLoading: false,
+      isLoadingLogin: false,
+      isLoadingRegister: false,
       error: action.error
     }
   }),
@@ -72,7 +78,8 @@ export const reducer = createReducer(
     return {
       ...state,
       user: action.data,
-      isLoading: false,
+      isLoadingLogin: false,
+      isLoadingRegister: false,
       registering: false
     }
   }),
@@ -87,7 +94,8 @@ export const reducer = createReducer(
         moneySpent: 0,
         isAdmin: false
       },
-      isLoading: false,
+      isLoadingLogin: false,
+      isLoadingRegister: false,
       error: action.error,
       registering: true
     }

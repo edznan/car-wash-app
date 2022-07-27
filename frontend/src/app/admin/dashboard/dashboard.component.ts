@@ -1,21 +1,24 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
+import { ApiService } from 'src/app/shared/services/api.service';
+import { Dashboard } from 'src/app/shared/models/dashboard';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit{
 
-  customersToday = 0;
-  customersThisWeek = 0;
-  programs = [
-    'Interior',
-    'Exterior'
-  ];
-  totalEarnings = 0;
+  isLoading = false;
+
+  dashboard: Dashboard = {
+    washesToday: 0,
+    washesThisWeek: 0,
+    earnings: 0,
+    programs: []
+  };
 
   cards = this.breakpointObserver.observe(Breakpoints.Handset).pipe(
     map(({ matches }) => {
@@ -37,5 +40,25 @@ export class DashboardComponent {
     })
   );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+  constructor(
+    private breakpointObserver: BreakpointObserver,
+    private apiService: ApiService
+    ) {}
+
+  ngOnInit() {
+    this.isLoading = true;
+    this.getDashboard();
+  }
+
+  getDashboard() {
+    this.apiService.getDashboardInfo().subscribe((res: any ) => {
+      this.dashboard = {
+        washesToday: res.washes_today,
+        washesThisWeek: res.washes_this_week,
+        earnings: res.earnings,
+        programs: res.programs
+      }
+      this.isLoading = false;
+    });
+  }
 }

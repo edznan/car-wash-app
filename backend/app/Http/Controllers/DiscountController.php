@@ -24,6 +24,8 @@ class DiscountController extends Controller
                 $discounts = Discount::all();
                 return response()->json($discounts, 200);
             }
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
 
@@ -43,6 +45,8 @@ class DiscountController extends Controller
                 Discount::where('id', $discountId)->update(['is_active' => $value[0]]);
                 return response()->json(['message' => 'success']);
             }
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
 }

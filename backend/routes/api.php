@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\StepController;
 use App\Http\Controllers\UserController;
@@ -55,8 +56,6 @@ Route::group(['middleware' => 'api'], function() {
     Route::get('washes/single/{id}', [WashController::class, 'getOneWash']);
     Route::get('washes/user/{id}', [WashController::class, 'getWashesForUser']);
     Route::post('washes/add', [WashController::class, 'createWash']);
-    Route::put('washes/edit/{id}', [WashController::class, 'editWash']);
-    Route::get('washes/delete/{id}', [WashController::class, 'deleteWash']);
 
     Route::get('payment-providers/all', [PaymentProviderController::class, 'getAllProviders']);
     Route::get('payment-providers/single/{id}', [PaymentProviderController::class, 'getOneProvider']);
@@ -72,6 +71,8 @@ Route::group(['middleware' => 'api'], function() {
     Route::get('discounts/all', [DiscountController::class, 'getAllDiscounts']);
     Route::get('discounts/active', [DiscountController::class, 'getActiveDiscounts']);
     Route::put('discounts/edit/{id}', [DiscountController::class, 'editDiscount']);
+
+    Route::get('dashboard', [DashboardController::class, 'getDashboard']);
 });
 
 

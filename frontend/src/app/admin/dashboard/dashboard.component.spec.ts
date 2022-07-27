@@ -37,4 +37,10 @@ describe('DashboardComponent', () => {
   it('should compile', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should show progress spinner while the data is being loaded', () => {
+    const fixture = TestBed.createComponent(DashboardComponent);
+    const compiled = fixture.debugElement.componentInstance;
+    expect(compiled.isLoading).toBeFalse();
+  });
 });

@@ -9,5 +9,5 @@ class Wash extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'cost' ];
+    protected $fillable = [ 'cost', 'user_id', 'program_id', 'length', 'program_name', 'payment_provider' ];
 }

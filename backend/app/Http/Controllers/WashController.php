@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Discount;
 use App\Models\Wash;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Carbon\Carbon;
 
 class WashController extends Controller
 {
@@ -16,10 +18,19 @@ class WashController extends Controller
         $this->user = JWTAuth::parseToken()->authenticate();
     }
 
-    public function getAllWashes()
+    public function getAllWashes(Request $request)
     {
-        $washes = Wash::all();
-        return response()->json($washes, 200);
+        if ($this->user) {
+            $current_user = $request->user();
+            if ($current_user['is_admin']) {
+                $washes = Wash::all();
+                return response()->json($washes, 200);
+            } else {
+                return response()->json(['error' => 'Unauthorized'], 401);
+            }
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
     }
 
     public function getWashesForUser(Request $request) {
@@ -29,31 +40,35 @@ class WashController extends Controller
 
     public function createWash(Request $request)
     {
-        User::where('id', $request->user_id)->increment('money_spent', $request->cost);
-        Wash::create($request->all());
+        $data = [
+            'cost' => $request->cost,
+            'payment_provider' => $request->paymentProvider,
+            'program_name' => $request->programName,
+            'program_id' => $request->programId,
+            'user_id' => $request->userId,
+            'length' => $request->length
+        ];
+
+        $discount = Discount::where('is_active', 1)->take(1)->get()->toArray();
+        $discount_amount = 0;
+
+        $user = User::where('user_id', $data['user_id']);
+        $dt = Carbon::now();
+
+        if ($discount[0]['id'] == 1) {
+            if ($dt->isWeekend()) {
+                $discount_amount = $request->cost - $discount[0]['discount_amount'];
+            }
+        } else if ($discount['id'] == 2) {
+            if ($user['number_of_washes'] % 5 == 0) {
+                $discount_amount = $request->cost - $discount[0]['discount_amount'];
+            }
+        }
+
+        User::where('id', $data['user_id'])->increment('money_spent', $discount_amount);
+        User::where('id', $data['user_id'])->increment('number_of_washes');
+        Wash::create($data);
+
         return response()->json(['message' => 'success']);
-    }
-
-    public function editWash(Request $request)
-    {
-        if ($this->user) {
-            $current_user = $request->user();
-            if ($current_user['is_admin']) {
-                $wash = $request->all();
-                Wash::where('id', $wash['id'])->update($wash);
-                return response()->json(['message' => 'success']);
-            }
-        }
-    }
-
-    public function deleteTimingOption(Request $request) {
-        if ($this->user) {
-            $current_user = $request->user();
-            if ($current_user['is_admin']) {
-                $wash_id = $request->id;
-                Wash::where('id', $wash_id)->delete();
-                return response()->json(['message' => 'success']);
-            }
-        }
     }
 }

@@ -23,10 +23,10 @@ class UserController extends Controller
                 $users = User::all();
                 return response()->json($users, 200);
             } else {
-                return response()->json(['message' => 'Unauthorized'], 401);
+                return response()->json(['error' => 'Unauthorized'], 401);
             }
         } else {
-            return response()->json(['message' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
 
@@ -44,7 +44,11 @@ class UserController extends Controller
             if ($current_user['is_admin']) {
                 User::create($request->all());
                 return response()->json(['message' => 'success']);
+            } else {
+                return response()->json(['error' => 'Unauthorized'], 401);
             }
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
 
@@ -57,7 +61,11 @@ class UserController extends Controller
                 $user = User::where('id', $new_info['id']);
                 $user->update($new_info);
                 return response()->json(['message' => 'success']);
+            } else {
+                return response()->json(['error' => 'Unauthorized'], 401);
             }
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
 
@@ -68,7 +76,11 @@ class UserController extends Controller
                 $userId = $request->id;
                 User::where('id', $userId)->delete();
                 return response()->json(['message' => 'success']);
+            } else {
+                return response()->json(['error' => 'Unauthorized'], 401);
             }
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
 }

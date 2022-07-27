@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { AuthFormData } from 'src/app/shared/models/authFromData';
 import { Store } from '@ngrx/store';
 import { registerPage } from 'src/app/store/actions/auth.actions';
-import { AuthService } from 'src/app/shared/services/auth.service';
-import { SnackBarComponent } from 'src/app/shared/snack-bar/snack-bar.component';
 import { Observable } from 'rxjs';
-import { selectLoadingStatus, selectRegisteringStatus } from 'src/app/store/selectors/auth.selectors';
+import { selectRegisterLoadingStatus, selectRegisteringStatus } from 'src/app/store/selectors/auth.selectors';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { AppState } from 'src/app/store';
 
@@ -28,7 +25,7 @@ export class RegisterComponent implements OnInit {
     private store: Store<AppState>
   ) {
     this.registering$ = this.store.select(selectRegisteringStatus);
-    this.isLoading$ = this.store.select(selectLoadingStatus);
+    this.isLoading$ = this.store.select(selectRegisterLoadingStatus);
   }
 
   ngOnInit(): void {

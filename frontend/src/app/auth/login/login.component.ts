@@ -1,16 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { TokenService } from 'src/app/shared/services/token.service';
-import { Router } from '@angular/router';
-import { AuthStateService } from 'src/app/shared/services/authState.service';
-import { UserService } from 'src/app/shared/services/user.service';
 import { AppState } from 'src/app/store';
 import { Observable } from 'rxjs';
 import { AuthFormData } from 'src/app/shared/models/authFromData';
 import { select, Store } from '@ngrx/store';
 import { loginPage } from 'src/app/store/actions/auth.actions';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
-import { selectLoadingStatus } from 'src/app/store/selectors/auth.selectors';
+import { selectLoginLoadingStatus } from 'src/app/store/selectors/auth.selectors';
 
 @Component({
   selector: 'app-login',
@@ -27,7 +23,7 @@ export class LoginComponent implements OnInit {
     private snackbarService: SnackbarService,
     private store: Store<AppState>
     ) {
-      this.isLoading$ = this.store.pipe(select(selectLoadingStatus));
+      this.isLoading$ = this.store.pipe(select(selectLoginLoadingStatus));
   }
 
   ngOnInit(): void {

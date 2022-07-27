@@ -16,7 +16,15 @@ import { WashesListComponent } from './washes-list/washes-list.component';
 })
 export class ProfileComponent implements OnInit {
 
-  user!: User;
+  user: User = {
+    id: 0,
+    name: '',
+    moneySpent: 0,
+    numberOfWashes: 0,
+    email: '',
+    isAdmin: false
+  };
+
   washes: Wash[] = [];
   isLoading = false;
 
@@ -36,8 +44,14 @@ export class ProfileComponent implements OnInit {
 
   getUser() {
     this.userService.getUserInfo().subscribe((data: any) => {
-      this.user = data[0];
-      this.isLoading = false;
+      this.user = {
+        id: data[0].id,
+        name: data[0].name,
+        email: data[0].email,
+        numberOfWashes: data[0].number_of_washes,
+        moneySpent: data[0].money_spent,
+        isAdmin: data[0].is_admin
+      };
       this.getWashesForUser(this.user.id!);
     });
   }
@@ -55,7 +69,7 @@ export class ProfileComponent implements OnInit {
         };
         this.washes.push(washObj);
       });
-      this.user.numberOfWashes = this.washes.length;
+      this.isLoading = false;
     });
   }
 
@@ -63,7 +77,8 @@ export class ProfileComponent implements OnInit {
     this.dialog.open(WashesListComponent, {
       data: {
         washes: this.washes
-      }
+      },
+      width: '360px'
     });
   }
 

@@ -5,10 +5,16 @@ export const selectAuthState = createFeatureSelector<fromAuth.State>(
   fromAuth.authFeatureKey
 );
 
-export const selectLoadingStatus = createSelector(
+export const selectLoginLoadingStatus = createSelector(
   selectAuthState,
-  (state: fromAuth.State): boolean => state.isLoading
+  (state: fromAuth.State): boolean => state.isLoadingLogin
 );
+
+export const selectRegisterLoadingStatus = createSelector(
+  selectAuthState,
+  (state: fromAuth.State): boolean => state.isLoadingRegister
+);
+
 
 export const selectRegisteringStatus = createSelector(
   selectAuthState,

@@ -59,7 +59,11 @@ class PaymentProviderController extends Controller
                 PaymentProvider::create(['name' => $request->name, 'logo' => $attachment_url]);
 
                 return response()->json(['message' => 'success']);
+            } else {
+                return response()->json(['error' => 'Unauthorized'], 401);
             }
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
 
@@ -89,7 +93,11 @@ class PaymentProviderController extends Controller
                 PaymentProvider::where('id', $request->id)->update(['name' => $request->name, 'logo' => $attachment_url]);
 
                 return response()->json(['message' => 'success']);
+            } else {
+                return response()->json(['error' => 'Unauthorized'], 401);
             }
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
 
@@ -100,7 +108,11 @@ class PaymentProviderController extends Controller
                 $providerId = $request->id;
                 PaymentProvider::where('id', $providerId)->delete();
                 return response()->json(['message' => 'success']);
+            } else {
+                return response()->json(['error' => 'Unauthorized'], 401);
             }
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
 }

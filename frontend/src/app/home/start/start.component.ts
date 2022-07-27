@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Discount } from 'src/app/shared/models/discount';
 import { Option } from 'src/app/shared/models/moneyOption';
 import { PaymentProvider } from 'src/app/shared/models/paymentProvider';
 import { Program } from 'src/app/shared/models/program';
@@ -22,16 +21,16 @@ export class StartComponent implements OnInit {
   secondForm: FormGroup = new FormGroup({});
   thirdForm: FormGroup = new FormGroup({});
 
-  programs: Program[]= [];
+  programs: Program[] = [];
   providers: PaymentProvider[] = []
   moneyOptions: Option[] = [];
-  discounts: Discount[] = [];
 
   programToShow: any = {};
   duration = 0;
 
   isWashing = false;
-  isLoading = false;
+  isLoadingSpinner = false;
+  isLoadingBar = false;
 
   constructor(
     private fb: FormBuilder,
@@ -40,16 +39,15 @@ export class StartComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private tokenService: TokenService
-    ) { }
+  ) { }
 
   ngOnInit(): void {
 
-    this.isLoading = true;
+    this.isLoadingSpinner = true;
 
     this.getPrograms();
     this.getPricing();
     this.getProviders();
-    this.getDiscounts();
 
     this.firstForm = this.fb.group({
       money: new FormControl('', [Validators.required])
@@ -78,21 +76,6 @@ export class StartComponent implements OnInit {
     });
   }
 
-  getDiscounts() {
-    this.apiService.getActiveDiscounts().subscribe((res: any) => {
-      res.forEach((item: any) => {
-        const discountObj: Discount = {
-          id: item.id,
-          label: item.label,
-          discountAmount: item.discount_amount,
-          isActive: item.is_active === 1 ? true : false
-        };
-        this.discounts.push(discountObj);
-      });
-      this.isLoading = false;
-    });
-  }
-
   getProviders() {
     this.apiService.getAllProviders().subscribe((res: any) => {
       res.forEach((item: any) => {
@@ -103,6 +86,7 @@ export class StartComponent implements OnInit {
         };
         this.providers.push(providerObj);
       });
+    this.isLoadingSpinner = false;
     });
   }
 
@@ -122,6 +106,8 @@ export class StartComponent implements OnInit {
   startWash(firstForm: FormGroup, secondForm: FormGroup, thirdForm: FormGroup) {
     if (firstForm.valid && secondForm.valid && thirdForm.valid) {
 
+      this.isLoadingBar = true;
+
       const wash: Wash = {
         cost: firstForm.controls['money'].value,
         paymentProvider: secondForm.controls['paymentProvider'].value,
@@ -129,15 +115,21 @@ export class StartComponent implements OnInit {
         userId: this.userService.userId,
       }
 
-      const selectedDuration = this.moneyOptions.find(option => option.amount === +wash.cost);
+      let selectedOptionObj: Option = {
+        time: 0,
+        amount: 0
+      };
 
-      this.discounts.forEach(discount => {
-        if (discount.isActive) {
-          wash.cost = wash.cost - discount.discountAmount;
+      this.moneyOptions.forEach(option => {
+        if (option.amount === +wash.cost) {
+          selectedOptionObj = option;
         }
       });
 
+      wash.length = selectedOptionObj.time;
+
       this.apiService.getOneProgram(wash.programId).subscribe((val: any) => {
+
         this.programToShow = {
           id: val.program[0].id,
           label: val.program[0].label,
@@ -147,24 +139,25 @@ export class StartComponent implements OnInit {
 
         wash.programName = this.programToShow.label;
 
-        if (selectedDuration) {
-          this.displayWash(this.programToShow, selectedDuration.time);
-          wash.length = selectedDuration.time;
+        this.apiService.createWash(wash).subscribe((res: any) => {
 
-          this.apiService.createWash(wash).subscribe(res => {
-            this.isLoading = true;
+          if (res.message === 'success') {
+            this.displayWash(this.programToShow, selectedOptionObj.time);
             firstForm.reset();
             secondForm.reset();
             thirdForm.reset();
-          });
-        }
-
+            this.isLoadingBar = false;
+          }
+        });
       });
     }
 
   }
 
   prepareToWash() {
+    this.firstForm.reset();
+    this.secondForm.reset();
+    this.thirdForm.reset();
     this.isWashing = false;
     this.programToShow = null;
   }

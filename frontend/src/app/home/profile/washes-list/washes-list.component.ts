@@ -11,6 +11,8 @@ export class WashesListComponent implements OnInit {
 
   washes: Wash[] = [];
 
+  displayedColumns = ['id', 'program', 'length', 'cost'];
+
   constructor(
     private dialogRef: MatDialogRef<WashesListComponent>,
     @Inject(MAT_DIALOG_DATA) public dialogData: any,

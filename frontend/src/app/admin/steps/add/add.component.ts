@@ -48,7 +48,8 @@ export class AddStepComponent implements OnInit {
       if (form.controls['description'].hasError('required')) {
         this.snackbarService.openSnackBar('Description is required.');
         return;
-      }    }
+      }
+    }
   }
 
 }

@@ -13,7 +13,7 @@ class ImageRepository
         $extension = explode('/', $extension[0]);
         $extension = $extension[1];
 
-        $replace = substr($image_64, 0, strpos($image_64, ',')+1);
+        $replace = substr($image_64, 0, strpos($image_64, ',') + 1);
 
         $image = str_replace($replace, '', $image_64);
         $image = str_replace(' ', '+', $image);

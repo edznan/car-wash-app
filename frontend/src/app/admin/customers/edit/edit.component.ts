@@ -81,7 +81,7 @@ export class EditCustomerComponent implements OnInit {
 
       this.apiService.editCustomer(customer).subscribe((res: any) => {
         if (res.message === 'success') {
-          this.snackbarService.openSnackBar('Editing successful');
+          this.snackbarService.openSnackBar('Editing successful.');
           this.router.navigate(['admin/customers']);
         }
       });

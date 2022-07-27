@@ -41,11 +41,19 @@ export class CustomersComponent implements OnInit {
     });
   }
 
-  viewCustomer(userId: string) {
+  viewCustomer(userId: string, isAdmin: boolean) {
+    if (isAdmin) {
+      this.snackbarService.openSnackBar('Admin cannot be edited.');
+      return;
+    }
     this.router.navigateByUrl('/admin/customers/view/' + userId);
   }
 
-  deleteCustomer(userId: string) {
+  deleteCustomer(userId: string, isAdmin: boolean) {
+    if (isAdmin) {
+      this.snackbarService.openSnackBar('Admin cannot be deleted.');
+      return;
+    }
     this.apiService.deleteCustomer(userId).subscribe((res: any) => {
         if (res.message === 'success') {
           const userIndex = this.users.findIndex(user => {

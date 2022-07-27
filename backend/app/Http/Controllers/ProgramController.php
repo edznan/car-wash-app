@@ -55,7 +55,11 @@ class ProgramController extends Controller
                 }
 
                 return response()->json(['message' => 'success']);
+            } else {
+                return response()->json(['error' => 'Unauthorized'], 401);
             }
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
 
@@ -72,17 +76,23 @@ class ProgramController extends Controller
                 Program::where('id', $data['id'])->update($data_program);
 
                 foreach($data_steps as $step) {
-                    if ($step['program_id'] != null && $step['program_id'] != 0) {
-                        Step::where('program_id', $data['id'])->update($step);
-                    } else {
-                        $step['program_id'] = $data['id'];
-                        Step::where('program_id', $data['id'])->delete();
-                        Step::create($step);
+                    if (isset($step['program_id'])) {
+                        if (($step['program_id'] != null) && ($step['program_id'] != 0)) {
+                            Step::where('program_id', $data['id'])->update($step);
+                        } else {
+                            $step['program_id'] = $data['id'];
+                            Step::where('program_id', $data['id'])->delete();
+                            Step::create($step);
+                        }
                     }
                 }
 
                 return response()->json(['message' => 'success']);
+            } else {
+                return response()->json(['error' => 'Unauthorized'], 401);
             }
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
 
@@ -94,7 +104,11 @@ class ProgramController extends Controller
                 Step::where('program_id', $programId)->update(['program_id' => 0]);
                 Program::where('id', $programId)->delete();
                 return response()->json(['message' => 'success']);
+            } else {
+                return response()->json(['error' => 'Unauthorized'], 401);
             }
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
 }

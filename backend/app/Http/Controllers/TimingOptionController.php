@@ -28,7 +28,11 @@ class TimingOptionController extends Controller
             if ($current_user['is_admin']) {
                 TimingOption::create($request->all());
                 return response()->json(['message' => 'success']);
+            } else {
+                return response()->json(['error' => 'Unauthorized'], 401);
             }
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
 
@@ -40,7 +44,11 @@ class TimingOptionController extends Controller
                 $timing_option = $request->all();
                 TimingOption::where('id', $timing_option['id'])->update($timing_option);
                 return response()->json(['message' => 'success']);
+            } else {
+                return response()->json(['error' => 'Unauthorized'], 401);
             }
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
 
@@ -51,7 +59,11 @@ class TimingOptionController extends Controller
                 $timing_option_id = $request->id;
                 TimingOption::where('id', $timing_option_id)->delete();
                 return response()->json(['message' => 'success']);
+            } else {
+                return response()->json(['error' => 'Unauthorized'], 401);
             }
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
 }

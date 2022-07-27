@@ -39,7 +39,11 @@ class StepController extends Controller
             if ($current_user['is_admin']) {
                 Step::create($request->all());
                 return response()->json(['message' => 'success']);
+            } else {
+                return response()->json(['error' => 'Unauthorized'], 401);
             }
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
 
@@ -51,7 +55,11 @@ class StepController extends Controller
                 $step = $request->all();
                 Step::where('id', $step['id'])->update($step);
                 return response()->json(['message' => 'success']);
+            } else {
+                return response()->json(['error' => 'Unauthorized'], 401);
             }
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
 
@@ -62,7 +70,11 @@ class StepController extends Controller
                 $stepId = $request->id;
                 Step::where('id', $stepId)->delete();
                 return response()->json(['message' => 'success']);
+            } else {
+                return response()->json(['error' => 'Unauthorized'], 401);
             }
+        } else {
+            return response()->json(['error' => 'Unauthorized'], 401);
         }
     }
 }

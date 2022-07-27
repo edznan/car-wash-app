@@ -1,4 +1,4 @@
-<p>
+<p style="margin-bottom: 0">
   <mat-toolbar color="primary">
     <span>Car wash</span>
     <span class="spacer"></span>
@@ -12,7 +12,9 @@
   </mat-toolbar>
 </p>
 
-<mat-card class="mat-elevation-z5" *ngIf="!isLoading; else loading">
+<mat-progress-bar mode="indeterminate" *ngIf="isLoadingBar"></mat-progress-bar>
+
+<mat-card class="mat-elevation-z5" *ngIf="!isLoadingSpinner; else loading">
   <mat-stepper labelPosition="bottom" linear="true" #stepper *ngIf="!isWashing; else wash">
     <mat-step [stepControl]="firstForm">
       <form [formGroup]="firstForm">
@@ -26,7 +28,7 @@
           </mat-select>
         </mat-form-field>
         <div>
-          <button mat-button matStepperNext>Next</button>
+          <button color="primary" mat-flat-button matStepperNext>Next</button>
         </div>
       </form>
     </mat-step>
@@ -42,8 +44,8 @@
           </mat-select>
         </mat-form-field>
         <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-flat-button matStepperPrevious>Back</button>
+          <button mat-flat-button color="primary" matStepperNext>Next</button>
         </div>
       </form>
     </mat-step>
@@ -59,8 +61,8 @@
           </mat-select>
         </mat-form-field>
         <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-flat-button matStepperPrevious>Back</button>
+          <button mat-flat-button color="primary" matStepperNext>Next</button>
         </div>
       </form>
     </mat-step>
@@ -68,10 +70,14 @@
       <ng-template matStepLabel>Wash</ng-template>
       <p>Proceed to start washing.</p>
       <div>
-        <button mat-button (click)="startWash(firstForm, secondForm, thirdForm)">Start</button>
+        <button color="primary" mat-flat-button (click)="startWash(firstForm, secondForm, thirdForm)">Start</button>
       </div>
     </mat-step>
   </mat-stepper>
+
+  <ng-template #wash>
+    <app-wash *ngIf="programToShow !== null" [program]="programToShow" [duration]="duration" (newWash)="prepareToWash()"></app-wash>
+  </ng-template>
 </mat-card>
 
 <ng-template #loading>
@@ -79,6 +85,3 @@
   <p class="loading-text">Fetching your options. Please wait. <span style="font-size: 30px;">🚗 🏎️ 🚙</span></p>
 </ng-template>
 
-<ng-template #wash>
-  <app-wash *ngIf="programToShow !== null" [program]="programToShow" [duration]="duration" (newWash)="prepareToWash()"></app-wash>
-</ng-template>

@@ -53,13 +53,16 @@ export class WashComponent implements OnInit {
         this.endTimer()
       } else {
         this.remainingTime--;
-        durationPerStep--
+        durationPerStep--;
         if (durationPerStep === 0) {
           numberOfSteps--;
           durationPerStep = duration / program.steps.length
           this.currentStep = program.steps[program.steps.length - numberOfSteps];
+        } else {
+          this.currentStep.length = this.currentStep.length! - 1;
+          this.currentStep.length = Math.round(this.currentStep.length);
         }
-        this.currentStep.length = this.currentStep.length! - 1;
+
         this.progress = (100 * this.remainingTime) / this.duration;
       }
     }

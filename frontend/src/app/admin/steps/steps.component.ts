@@ -56,7 +56,7 @@ export class StepsComponent implements OnInit {
       data: { id: id }
     }).afterClosed().subscribe(res => {
       if (res === 'Yes') {
-        this.snackbarService.openSnackBar('Step deleted successfully');
+        this.snackbarService.openSnackBar('Step deleted successfully.');
         this.isLoading = true;
         this.getSteps();
       }
