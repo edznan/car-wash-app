@@ -38,9 +38,22 @@ describe('DashboardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should show progress spinner while the data is being loaded', () => {
+  it('should start with empty object of type Dashboard', () => {
     const fixture = TestBed.createComponent(DashboardComponent);
     const compiled = fixture.debugElement.componentInstance;
-    expect(compiled.isLoading).toBeFalse();
+    expect(compiled.dashboard).toBeFalsy();
+  });
+
+  it('should render cards', () => {
+    const fixture = TestBed.createComponent(DashboardComponent);
+    const compiled = fixture.debugElement.componentInstance;
+    expect(compiled.cards).toBeTruthy();
+  });
+
+  it('should display loading spinner', () => {
+    const fixture = TestBed.createComponent(DashboardComponent);
+    const compiled = fixture.debugElement.componentInstance;
+    expect(compiled.isLoadingSpinner).toBeFalsy();
+    compiled.getDashboard();
   });
 });
