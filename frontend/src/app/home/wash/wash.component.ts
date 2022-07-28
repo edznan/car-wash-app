@@ -33,7 +33,9 @@ export class WashComponent implements OnInit {
 
   ngOnInit(): void {
     this.remainingTime = this.duration;
-    this.prepareWashing(this.program, this.duration);
+    if (this.program.label && this.program.description && this.program.steps) {
+      this.prepareWashing(this.program, this.duration);
+    }
   }
 
   prepareWashing(program: Program, duration: number) {

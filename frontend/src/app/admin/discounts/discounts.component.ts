@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { Discount } from 'src/app/shared/models/discount';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';

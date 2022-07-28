@@ -5,7 +5,6 @@ import { Program } from 'src/app/shared/models/program';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Step } from 'src/app/shared/models/step';
 
 @Component({
   selector: 'app-add-program',

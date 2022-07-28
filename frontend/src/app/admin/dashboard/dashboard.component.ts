@@ -11,7 +11,7 @@ import { Dashboard } from 'src/app/shared/models/dashboard';
 })
 export class DashboardComponent implements OnInit{
 
-  isLoading = false;
+  isLoading = true;
 
   dashboard: Dashboard = {
     washesToday: 0,
@@ -46,7 +46,6 @@ export class DashboardComponent implements OnInit{
     ) {}
 
   ngOnInit() {
-    this.isLoading = true;
     this.getDashboard();
   }
 

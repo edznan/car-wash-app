@@ -32,21 +32,24 @@ export class EditBillingComponent implements OnInit {
     private snackbarService: SnackbarService,
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
     ) {
-      this.provider = this.dialogData.provider;
+      if (this.dialogData.provider) {
+        this.provider = this.dialogData.provider;
+      }
     }
 
   ngOnInit(): void {
+
     this.editForm = this.fb.group({
       name: new FormControl('', [Validators.required]),
       logo: new FormControl('', [Validators.required]),
       imageString: ''
     });
 
-    if (this.dialogData.provider) {
+    if (this.provider && this.provider.logo && this.provider.name) {
       this.editForm.patchValue({
         name: this.provider.name,
         logo: this.provider.logo,
-      })
+      });
     }
   }
 

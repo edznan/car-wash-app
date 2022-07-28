@@ -1,4 +1,7 @@
+import { Overlay } from '@angular/cdk/overlay';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { SnackbarService } from './snackbar.service';
 
@@ -6,7 +9,10 @@ describe('SnackbarService', () => {
   let service: SnackbarService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [ HttpClientTestingModule ],
+      providers: [ MatSnackBar, Overlay ]
+    });
     service = TestBed.inject(SnackbarService);
   });
 

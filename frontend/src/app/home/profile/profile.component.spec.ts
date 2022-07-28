@@ -1,6 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { ProfileComponent } from './profile.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 
 describe('ProfileComponent', () => {
   let component: ProfileComponent;
@@ -8,7 +11,9 @@ describe('ProfileComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProfileComponent ]
+      declarations: [ ProfileComponent ],
+      imports: [ HttpClientTestingModule, RouterTestingModule, MatDialogModule ],
+      providers: [ MatDialog ]
     })
     .compileComponents();
   });

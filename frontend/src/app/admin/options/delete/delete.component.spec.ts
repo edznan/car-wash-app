@@ -1,20 +1,27 @@
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-import { DeleteComponent } from './delete.component';
+import { DeletePricingOptionComponent } from './delete.component';
 
-describe('DeleteComponent', () => {
-  let component: DeleteComponent;
-  let fixture: ComponentFixture<DeleteComponent>;
+describe('DeletePricingOptionComponent', () => {
+  let component: DeletePricingOptionComponent;
+  let fixture: ComponentFixture<DeletePricingOptionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ DeleteComponent ]
+      declarations: [ DeletePricingOptionComponent ],
+      imports: [ HttpClientTestingModule, MatDialogModule ],
+      providers: [
+        { provide: MatDialogRef, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: {} },
+       ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DeleteComponent);
+    fixture = TestBed.createComponent(DeletePricingOptionComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

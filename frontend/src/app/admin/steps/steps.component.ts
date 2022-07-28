@@ -53,7 +53,7 @@ export class StepsComponent implements OnInit {
 
   initDeleteStep(id?: number) {
     this.dialog.open(StepsDialogComponent, {
-      data: { id: id }
+      data: { id }, width: '300px'
     }).afterClosed().subscribe(res => {
       if (res === 'Yes') {
         this.snackbarService.openSnackBar('Step deleted successfully.');

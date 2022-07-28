@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { MatSnackBar, MatSnackBarModule, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 
 import { SnackBarComponent } from './snack-bar.component';
 
@@ -8,7 +9,12 @@ describe('SnackBarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SnackBarComponent ]
+      declarations: [ SnackBarComponent ],
+      imports: [ MatSnackBarModule ],
+      providers: [
+        { provide: MAT_SNACK_BAR_DATA, useValue: {} },
+        { provide: MatSnackBar, useValue: {} }
+       ]
     })
     .compileComponents();
   });

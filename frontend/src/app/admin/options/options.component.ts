@@ -57,7 +57,8 @@ export class OptionsComponent implements OnInit {
 
   initDeleteOption(id?: number) {
     this.dialog.open(DeletePricingOptionComponent, {
-      data: { id }
+      data: { id: id },
+      width: '300px'
     }).afterClosed().subscribe(res => {
       if (res === 'ok') {
         this.snackbarService.openSnackBar('Pricing option deleted.');

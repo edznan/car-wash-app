@@ -19,7 +19,11 @@ export class WashesListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.washes = [...this.dialogData.washes];
+    if (this.dialogData.washes && this.dialogData.washes !== []) {
+      this.dialogData.washes.forEach((wash: Wash) => {
+        this.washes.push(wash);
+      });
+    }
   }
 
 }

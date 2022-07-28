@@ -57,6 +57,7 @@ import { StepsDialogComponent } from './admin/steps/dialog/dialog.component';
 import { AddPricingOptionComponent } from './admin/options/add/add.component';
 import { EditPricingOptionComponent } from './admin/options/edit/edit.component';
 import { DeletePricingOptionComponent } from './admin/options/delete/delete.component';
+import { WashesListComponent } from './home/profile/washes-list/washes-list.component';
 
 // services
 import { ApiService } from './shared/services/api.service';
@@ -80,7 +81,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import * as fromAuth from './store/reducers/auth.reducer';
 import { AuthEffects } from './store/effects/auth.effects';
-import { WashesListComponent } from './home/profile/washes-list/washes-list.component';
 
 @NgModule({
   declarations: [
@@ -174,7 +174,7 @@ import { WashesListComponent } from './home/profile/washes-list/washes-list.comp
       multi: true
     }
   ],
-  bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  bootstrap: [ AppComponent ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }

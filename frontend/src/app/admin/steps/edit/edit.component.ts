@@ -3,7 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from 'src/app/shared/services/api.service';
 import { SnackbarService } from 'src/app/shared/services/snackbar.service';
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Step } from 'src/app/shared/models/step';
 
 @Component({

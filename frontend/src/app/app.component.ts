@@ -12,6 +12,8 @@ export class AppComponent {
 
   isLoggedIn: boolean = false;
 
+  title = 'Car Washing Service';
+
   constructor(
     private auth: AuthStateService,
     public router: Router,

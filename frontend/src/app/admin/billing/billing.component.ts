@@ -57,7 +57,8 @@ export class BillingComponent implements OnInit {
     this.dialog.open(EditBillingComponent, {
       data: {
         provider
-      }
+      },
+      width: '300px'
     }).afterClosed().subscribe(res => {
       if (res === 'Ok') {
         this.snackbarService.openSnackBar('Billing option updated.');

@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { Discount } from '../models/discount';
 import { Option } from '../models/moneyOption';
 import { PaymentProvider } from '../models/paymentProvider';
 import { Program } from '../models/program';

@@ -6,7 +6,7 @@
       <input type="text" matInput formControlName="name" placeholder="Name">
     </mat-form-field>
     <div>
-      <span class="option-logo" #selectedLogo>
+      <span *ngIf="provider.logo" class="option-logo" #selectedLogo>
         <img [src]="getImage(provider.logo)" (click)="initImageSelect()">
       </span>
       <input #imageUpload type="hidden" placeholder="Logo" accept="image/jpeg, image/jpg, image/png" formControlName="logo" (change)="handleImageUpload($event)">
